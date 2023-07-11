@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>Home page</h1>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var username = '<%= user.username %>'
+    var socket = io();
+    socket.emit('newUserConnected', {
+      user: username
+    })
+  </script>
+</body>
+
+</html>
