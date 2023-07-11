@@ -1,0 +1,217 @@
+:root {
+    --primaryBackgroundColor: #001009;
+    --onPrimaryBackgroundColor: #d9d9d9;
+}
+
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+
+    /* Could be more or less, depending on screen size */
+    input {
+        width: 100%;
+        padding: 0.7rem 1rem;
+    }
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+
+    #left {
+        width: 30%;
+        height: 100%;
+        background-color: var(--primaryBackgroundColor);
+        color: var(--onPrimaryBackgroundColor);
+
+        .nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #767676;
+            background-color: #414945;
+
+            .user {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+
+                img {
+                    height: 4rem;
+                    width: 4rem;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+            }
+
+            i {
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+
+        .chats {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            position: relative;
+            overflow-y: auto;
+            height: calc(100% - 5.4rem);
+            width: 100%;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .title {
+                padding: 0.7rem 1rem;
+                font-weight: 500;
+            }
+
+            .chat {
+                width: 100%;
+                padding: 0.7rem 1rem;
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+
+                &:hover {
+                    background-color: #052115;
+                }
+
+                img {
+                    height: 4rem;
+                    width: 4rem;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+
+    #right {
+        width: 70%;
+        background-color: #272727;
+
+        .nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid #767676;
+            background-color: #ffffff3f;
+            color: var(--onPrimaryBackgroundColor);
+
+            .user {
+                display: flex;
+                align-items: center;
+                gap: 2rem;
+
+                img {
+                    height: 4rem;
+                    width: 4rem;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+            }
+
+            i {
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+
+        .conversation {
+            height: calc(100% - 5.4rem);
+            padding: 0.5rem 0.9rem;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                display: none;
+
+            }
+
+            .conver {
+                padding: 0.7rem 1rem;
+                width: fit-content;
+                background-color: #fefefe;
+                border-radius: 0.5rem;
+
+                &.outgoing {
+                    margin-left: auto;
+
+                    .time {
+                        text-align: end;
+                    }
+                }
+
+                .time {
+                    font-size: 0.6rem;
+                    text-align: start;
+                    opacity: 0.4;
+                }
+            }
+        }
+    }
+}

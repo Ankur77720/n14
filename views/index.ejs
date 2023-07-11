@@ -3,10 +3,48 @@
 
 <head>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href='https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css' rel='stylesheet' />
 </head>
 
 <body>
-  <h1>Home page</h1>
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <input type="text" name="username" placeholder="Enter username of other user">
+    </div>
+
+  </div>
+
+  <div id="main">
+    <div id="left">
+      <div class="nav">
+        <div class="user">
+          <img src="https://images.unsplash.com/photo-1689020562921-ba28a34c881d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1208&q=80" alt="">
+          <h2>username</h2>
+        </div>
+
+        <i id="myBtn" class="ri-add-line"></i>
+
+      </div>
+      <div class="chats">
+        <div class="title">
+          You chats
+        </div>
+        <div class="chat" onclick="openChat('Ankur','https://images.unsplash.com/photo-1689020562921-ba28a34c881d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1208&q=80')">
+          <img src="https://images.unsplash.com/photo-1689020562921-ba28a34c881d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1208&q=80" alt="">
+          <div class="text">
+            <h2>username</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="right">
+      
+    </div>
+  </div>
+
+  <script src="/javascripts/index.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var username = '<%= user.username %>'

@@ -11,6 +11,18 @@ mongoose.connect('mongodb://0.0.0.0/n1-finalProject').then(result => {
 }).catch(err => {
   console.log(err)
 })
+
+async function clearSockets() {
+  var allUser = await users.find({})
+  await Promise.all(
+    allUser.map(async user => {
+      user.currentSocket = ''
+      await user.save()
+    })
+  )
+}
+clearSockets()
+
 /* GET home page. */
 router.get('/', isloggedIn, function (req, res, next) {
   res.render('index', { user: req.user });
