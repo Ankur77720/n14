@@ -24,8 +24,12 @@ async function clearSockets() {
 clearSockets()
 
 /* GET home page. */
-router.get('/', isloggedIn, function (req, res, next) {
-  res.render('index', { user: req.user });
+router.get('/', isloggedIn, async function (req, res, next) {
+  var currentUser = await users.findOne({
+    username: req.user.username
+  })
+
+  res.render('index', { user: currentUser });
 });
 
 router.post('/register', (req, res, next) => {
@@ -69,5 +73,21 @@ function isloggedIn(req, res, next) {
   if (req.isAuthenticated()) return next();
   else res.redirect('/login');
 }
+router.post('/findUser', async (req, res, next) => {
+  var findUser = await users.findOne({
+    username: req.body.data
+  })
+  if (findUser) {
+    res.status(200).json({
+      isUserThere: true,
+      user: findUser,
+    })
+  }
+  else {
+    res.status(200).json({
+      isUserThere: false,
+    })
+  }
+})
 
 module.exports = router;

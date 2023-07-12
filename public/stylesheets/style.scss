@@ -213,5 +213,12 @@ body {
                 }
             }
         }
+
+        #newmsg {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 0.7rem 1rem;
+        }
     }
 }

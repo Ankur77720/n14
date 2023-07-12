@@ -11,7 +11,13 @@ io.on("connection", function (socket) {
         var currentUser = await users.findOne({
             username: msg.user
         })
+        currentUser.currentSocket = socket.id
+        await currentUser.save()
         console.log(currentUser)
+    })
+
+    socket.on('newmsg', msg => {
+        console.log(msg)
     })
 });
 // end of socket.io logic
