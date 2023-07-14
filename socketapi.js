@@ -1,5 +1,6 @@
 const io = require("socket.io")();
 const users = require('./routes/users')
+const chat = require('./routes/chat')
 const socketapi = {
     io: io
 };
@@ -13,11 +14,32 @@ io.on("connection", function (socket) {
         })
         currentUser.currentSocket = socket.id
         await currentUser.save()
-        console.log(currentUser)
     })
 
-    socket.on('newmsg', msg => {
-        console.log(msg)
+    socket.on('newmsg', async msg => {
+
+        var fromUser = await users.findOne({
+            username: msg.fromUser
+        })
+        msg.fromUserPic = fromUser.pic
+        var toUser = await users.findOne({
+            username: msg.toUser
+        })
+
+        var newChat = await chat.create({
+            msg: msg.data,
+            fromUser: fromUser._id,
+            toUser: toUser._id,
+            time: Date.now()
+        })
+        if (toUser.currentSocket) {
+            socket.to(toUser.currentSocket).emit('newmsg', msg)
+        }
+        else {
+            console.log('to user offline')
+        }
+        console.log(newChat)
+        // console.log(msg)
     })
 });
 // end of socket.io logic

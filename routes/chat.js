@@ -10,7 +10,7 @@ var chatSchema = mongoose.Schema({
         ref: 'user'
     },
     msg: String,
-    time: Date,
+    time: Number,
 })
 
 module.exports = mongoose.model('chat', chatSchema)

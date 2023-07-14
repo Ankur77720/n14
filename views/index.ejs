@@ -62,13 +62,41 @@
 
     function newmsg() {
       var msgField = document.querySelector('#newmsg')
-      var msg = msgField.value
-      socket.emit('newmsg', {
-        toUser: currentOppositeUser,
-        msg: msg,
+      var currentMessage = {
+        data: msgField.value,
         fromUser: username,
-      })
+        toUser: currentOppositeUser,
+      }
+      addMessage(currentMessage)
+      socket.emit('newmsg', currentMessage)
+      msgField.value = ''
+    }
+    socket.on('newmsg', msg => {
+      addChat(msg.fromUser, msg.fromUserPic)
+    })
 
+    function addMessage(message) {
+      let msg
+      if (message.fromUser == username) {
+        msg = `<div class="conver outgoing">
+       <div class="msg">${message.data}</div>
+     </div>`
+      } else {
+        msg = `<div class="conver incoming">
+       <div class="msg">${message.data}</div>
+     </div>`
+      }
+
+      document.querySelector('.conversation').innerHTML += msg
+
+      //   `<div class="conver incoming">
+      //   <div class="msg">helloassdfdsgfghhhhhhhhhhhhhhhh</div>
+      //   <div class="time">25/2/23</div>
+      // </div>
+      // <div class="conver outgoing">
+      //   <div class="msg">hellodsffffffffffffffffffffffffffff</div>
+      //   <div class="time">25/2/23</div>
+      // </div>`
     }
   </script>
 </body>

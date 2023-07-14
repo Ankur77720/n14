@@ -21,6 +21,7 @@ async function clearSockets() {
     })
   )
 }
+
 clearSockets()
 
 /* GET home page. */
@@ -28,7 +29,6 @@ router.get('/', isloggedIn, async function (req, res, next) {
   var currentUser = await users.findOne({
     username: req.user.username
   })
-
   res.render('index', { user: currentUser });
 });
 

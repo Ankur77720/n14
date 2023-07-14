@@ -37,18 +37,12 @@ function addChat(username, image) {
     </div>
   </div>`
 }
+
+
+
+
 async function openChat(username, image) {
   currentOppositeUser = username
-  //   `<div class="conver incoming">
-  //   <div class="msg">helloassdfdsgfghhhhhhhhhhhhhhhh</div>
-  //   <div class="time">25/2/23</div>
-  // </div>
-  // <div class="conver outgoing">
-  //   <div class="msg">hellodsffffffffffffffffffffffffffff</div>
-  //   <div class="time">25/2/23</div>
-  // </div>`
-
-
   right.innerHTML = `<div class="nav">
   <div class="user">
     <img src=${image} alt="">
