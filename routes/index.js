@@ -3,6 +3,7 @@ var router = express.Router();
 var users = require('./users')
 var passport = require('passport')
 var localStrategy = require('passport-local')
+var chats = require('./chat')
 passport.use(new localStrategy(users.authenticate()))
 const mongoose = require('mongoose')
 
@@ -28,7 +29,7 @@ clearSockets()
 router.get('/', isloggedIn, async function (req, res, next) {
   var currentUser = await users.findOne({
     username: req.user.username
-  })
+  }).populate('chats')
   res.render('index', { user: currentUser });
 });
 
@@ -88,6 +89,34 @@ router.post('/findUser', async (req, res, next) => {
       isUserThere: false,
     })
   }
+})
+
+router.post('/getChat', isloggedIn, async (req, res, next) => {
+  var currentUsername = req.user._id
+  var oppositeUser = await users.findOne({
+    username: req.body.oppositeUser
+  })
+
+  var userChats = await chats.find({
+    $or: [
+      {
+        fromUser: currentUsername
+      }, {
+        fromUser: oppositeUser._id
+      }
+    ],
+    $or: [
+      {
+        toUser: currentUsername
+      }, {
+        toUser: oppositeUser._id
+      }
+    ]
+  }).populate('fromUser').populate("toUser")
+  res.status(200).json({
+    userChats
+  })
+
 })
 
 module.exports = router;

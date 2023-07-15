@@ -42,6 +42,36 @@ function addChat(username, image) {
 
 
 async function openChat(username, image) {
+
+  var response = await axios.post('/getChat', {
+    oppositeUser: username
+  })
+  //   `<div class="conver incoming">
+  //   <div class="msg">helloassdfdsgfghhhhhhhhhhhhhhhh</div>
+  //   <div class="time">25/2/23</div>
+  // </div>
+  // <div class="conver outgoing">
+  //   <div class="msg">hellodsffffffffffffffffffffffffffff</div>
+  //   <div class="time">25/2/23</div>
+  // </div>`
+
+  var userChats = response.data.userChats
+  var clutter = ''
+  userChats.forEach(chat => {
+    if (chat.fromUser.username == username) {
+      clutter += ` <div class="conver outgoing">
+         <div class="msg">${chat.msg}</div>
+         <div class="time">25/2/23</div>
+       </div>`
+    }
+    else {
+      clutter += ` <div class="conver incoming">
+         <div class="msg">${chat.msg}</div>
+         <div class="time">25/2/23</div>
+       </div>`
+    }
+  })
+
   currentOppositeUser = username
   right.innerHTML = `<div class="nav">
   <div class="user">
@@ -50,7 +80,7 @@ async function openChat(username, image) {
   </div>
   </div>
   <div class="conversation">
-    
+    ${clutter}
   </div>
    <input type="text" onchange="newmsg()" id="newmsg" placeholder="start new conversation" />
   `

@@ -26,6 +26,16 @@ io.on("connection", function (socket) {
             username: msg.toUser
         })
 
+        var indexOfTouser = fromUser.chats.indexOf(toUser._id)
+        console.log(indexOfTouser)
+        if (indexOfTouser == -1) {
+            msg.isNewChat = true
+            fromUser.chats.push(toUser._id)
+            toUser.chats.push(fromUser._id)
+            await fromUser.save()
+            await toUser.save()
+        }
+
         var newChat = await chat.create({
             msg: msg.data,
             fromUser: fromUser._id,

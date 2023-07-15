@@ -72,7 +72,13 @@
       msgField.value = ''
     }
     socket.on('newmsg', msg => {
-      addChat(msg.fromUser, msg.fromUserPic)
+      console.log(msg)
+      if (msg.fromUser == currentOppositeUser) {
+        addMessage(msg)
+      } else {
+        if (msg.isNewChat)
+          addChat(msg.fromUser, msg.fromUserPic)
+      }
     })
 
     function addMessage(message) {
@@ -89,14 +95,7 @@
 
       document.querySelector('.conversation').innerHTML += msg
 
-      //   `<div class="conver incoming">
-      //   <div class="msg">helloassdfdsgfghhhhhhhhhhhhhhhh</div>
-      //   <div class="time">25/2/23</div>
-      // </div>
-      // <div class="conver outgoing">
-      //   <div class="msg">hellodsffffffffffffffffffffffffffff</div>
-      //   <div class="time">25/2/23</div>
-      // </div>`
+     
     }
   </script>
 </body>
